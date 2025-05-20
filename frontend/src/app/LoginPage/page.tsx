@@ -50,7 +50,7 @@ export default function LoginPage() {
             <BotaoSubmit label={`Login`}/>
         </div>
         <div className="flex items-center justify-center">
-            <p className="text-black">Novo usuario? <Link href={'/RegisterPage'}>Clique aqui</Link></p>
+            <p className="text-black text-[12px]">Novo usuario? <Link href={'/RegisterPage'}>Clique aqui</Link></p>
         </div>
       </div>
     </div>
