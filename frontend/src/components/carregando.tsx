@@ -8,7 +8,7 @@ export default function LoadingPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push("/CadasterPage");
+      router.push("/LoginPage");
     }, 3000);
 
     return () => clearTimeout(timer);
