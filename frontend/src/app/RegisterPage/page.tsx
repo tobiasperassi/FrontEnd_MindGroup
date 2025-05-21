@@ -2,14 +2,50 @@
 
 import BotaoSubmit from "@/components/BotaoSubmit";
 import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiArrowLeft } from "react-icons/fi";
 
 export default function RegisterPage() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("As senhas não coincidem");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (res.ok) {
+        alert("Cadastro realizado com sucesso!");
+        router.push("/LoginPage");
+      } else {
+        const data = await res.json();
+        alert("Erro ao cadastrar: " + (data.message || "Erro desconhecido"));
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao conectar com a API.");
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-white px-4">
-      <div className="px-5 mt-12 w-full max-w-md">
+      <form onSubmit={handleRegister} className="px-5 mt-12 w-full max-w-md">
         <div className="flex items-center gap-4 mb-2">
           <Link href="/LoginPage" className="text-black hover:text-gray-600 mr-6">
             <FiArrowLeft size={24} />
@@ -19,63 +55,57 @@ export default function RegisterPage() {
         <p className="text-[#1B1B1B] pt-6">
           Crie sua conta para explorar conteúdos incríveis, seguir autores e participar da comunidade.
         </p>
-      </div>
 
-      <div className=" px-5 mt-20 w-full max-w-md space-y-4">
-        <div>
+        <div className="mt-20 space-y-4">
           <input
-            id="email"
-            name="email"
             type="email"
-            required
             placeholder="Email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-md text-black border-[#9E9E9E] p-3 border placeholder-[#9E9E9E] focus:outline-none focus:ring-1 focus:ring-[#1B1B1B]"
           />
-        </div>
-        <div>
           <input
-            id="password"
-            name="password"
             type="password"
-            required
             placeholder="Senha"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full rounded-md text-black border-[#9E9E9E] p-3 border placeholder-[#9E9E9E] focus:outline-none focus:ring-1 focus:ring-[#1B1B1B]"
+          />
+          <input
+            type="password"
+            placeholder="Confirmar senha"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className="w-full rounded-md text-black border-[#9E9E9E] p-3 border placeholder-[#9E9E9E] focus:outline-none focus:ring-1 focus:ring-[#1B1B1B]"
           />
         </div>
-        <div>
+
+        <div className="flex items-center mt-6">
           <input
-            id="password"
-            name="password"
-            type="password"
+            id="terms"
+            name="terms"
+            type="checkbox"
             required
-            placeholder="Confirmar senha"
-            className="w-full rounded-md text-black border-[#9E9E9E] p-3 border placeholder-[#9E9E9E] focus:outline-none focus:ring-1 focus:ring-[#1B1B1B]"
+            className="h-4 w-4 rounded border-[#9E9E9E] text-[#1B1B1B] focus:ring-[#1B1B1B]"
           />
+          <label htmlFor="terms" className="ml-3 text-sm mt-1 text-[#1B1B1B]">
+            Li e concordo com os Termos de Uso e a Política de Privacidade
+          </label>
         </div>
 
         <div className="mt-8">
-            <BotaoSubmit label={`Criar conta`}/>
+          <BotaoSubmit label="Criar conta" />
         </div>
-        <div className="flex flex-row items-center">
-          <div className="flex items-center h-5">
-            <input
-              id="terms"
-              name="terms"
-              type="checkbox"
-              required
-              className="h-4 w-4 rounded border-[#9E9E9E] text-[#1B1B1B] focus:ring-[#1B1B1B]"
-            />
-          </div>
-          <div className="ml-3 text-sm mt-3">
-            <label htmlFor="terms" className="text-[#1B1B1B]">
-              Li e concordo com os Termos de Uso e a Política de Privacidade
-            </label>
-          </div>
+
+        <div className="flex items-center justify-center mt-4">
+          <p className="text-black text-[12px]">
+            Já tem um cadastro? <Link href={"/LoginPage"}>Clique aqui</Link>
+          </p>
         </div>
-        <div className="flex items-center justify-center">
-            <p className="text-black text-[12px]">Já tem um cadastro? <Link href={'/LoginPage'}>Clique aqui</Link></p>
-        </div>
-      </div>
+      </form>
     </div>
   );
 }
