@@ -109,6 +109,7 @@ export default function CreateArticle() {
           className="w-full rounded-md border border-gray-300 p-5 mt-2 text-[13px]"
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
+          maxLength={80}
         />
 
         <h1 className="mt-3">Texto</h1>

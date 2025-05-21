@@ -58,7 +58,7 @@ export default function Home() {
 
               {/* Conteúdo */}
               <p className="mt-2 text-base text-gray-700 leading-relaxed">
-                {artigo.conteudo.substring(0, 300)}...
+                {artigo.conteudo.substring(0, 300)}
               </p>
 
               {/* Autor, Data e Coração */}
