@@ -15,7 +15,7 @@ export default function Navbar() {
     <div>
     <nav className="flex items-center justify-between p-6">
       <div className="flex space-x-6">
-        <Link href="/" className="text-gray-800 hover:text-gray-600 font-medium pr-5">
+        <Link href="/Home" className="text-gray-800 hover:text-gray-600 font-medium pr-5">
           Home
         </Link>
         <Link href="/artigos" className="text-gray-800 hover:text-gray-600 font-medium">
@@ -41,17 +41,17 @@ export default function Navbar() {
           </svg>
 
           <button onClick={abrirSidebar} className="text-2xl">
-            <FiX className="text-xl text-black hover:text-black" size={24}/>
+            <FiX className="text-xl text-black hover:text-black cursor-pointer" size={24}/>
           </button>
         </div>
         <div className="flex flex-col space-y-4 p-4 text-right">
-          <Link href="/perfil" className="text-black text-xl" onClick={abrirSidebar}>
+          <Link href="/Perfil" className="text-black text-xl" onClick={abrirSidebar}>
             Perfil
           </Link>
-          <Link href="/meus-artigos" className="text-black text-xl" onClick={abrirSidebar}>
+          <Link href="/MyArticles" className="text-black text-xl" onClick={abrirSidebar}>
             Meus Artigos
           </Link>
-          <Link href="/criar-artigo" className="text-black text-xl" onClick={abrirSidebar}>
+          <Link href="/CreateArticle" className="text-black text-xl" onClick={abrirSidebar}>
             Criar novo Artigo
           </Link>
           <Link href="/LoginPage" className="text-black text-xl align-text-bottom" onClick={abrirSidebar}>
