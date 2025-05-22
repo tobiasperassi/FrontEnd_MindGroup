@@ -17,7 +17,7 @@ type Artigo = {
   };
 };
 
-export default function Home() {
+export default function Articles() {
   const [artigos, setArtigos] = useState<Artigo[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter(); // <- Adicionado aqui

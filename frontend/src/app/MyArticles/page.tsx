@@ -7,8 +7,6 @@ import { FaHeart, FaTrash, FaEdit } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from 'next/navigation';
 
-
-
 type Artigo = {
   id: number;
   titulo: string;
@@ -106,21 +104,24 @@ export default function MyArticles() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <div className="ml-3">
+        <Navbar />
+      </div>
 
-      <div className="max-w-3xl mx-auto mt-10 px-4">
-        <h1 className="text-xl font-semibold mb-6">Meus Artigos</h1>
+      <div className="max-w-3xl mx-auto px-4">
+        <h1 className="font-semibold mb-4 mx-4 text-[12px]">Meus Artigos</h1>
 
         {loading ? (
           <p className="text-gray-500">Carregando artigos...</p>
         ) : artigos.length === 0 ? (
           <p className="text-gray-500">Você ainda não publicou nenhum artigo.</p>
         ) : (
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col">
             {artigos.map((artigo) => (
               <div
                 key={artigo.id}
-                className="flex flex-col bg-white rounded-xl p-4 items-start gap-4 "
+                onClick={() => router.push(`/artigo/${artigo.id}`)}
+                className="flex flex-col bg-white rounded-xl px-4 py-2 items-start gap-2 cursor-pointer hover:bg-gray-50 transition"
               >
                 <div className="flex flex-row">
                   <ImageWithFallback
@@ -150,17 +151,23 @@ export default function MyArticles() {
 
                     <div className="flex flex-row items-center gap-3">
                       <button
-                        onClick={() => abrirModal(artigo)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          abrirModal(artigo);
+                        }}
                         className="bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded-lg transition"
                       >
                         <FaTrash size={14} />
                       </button>
                       <button
-                        onClick={() => router.push(`/UpdateArticle?id=${artigo.id}`)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/UpdateArticle?id=${artigo.id}`);
+                        }}
                         className="bg-black hover:bg-gray-800 text-white py-2 px-5 rounded-lg transition"
-                        >
+                      >
                         <FaEdit size={14} />
-                    </button>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -170,7 +177,6 @@ export default function MyArticles() {
         )}
       </div>
 
-      {/* MODAL INLINE */}
       {showModal && selectedArtigo && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
           <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl">

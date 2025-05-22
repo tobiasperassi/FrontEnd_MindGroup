@@ -15,10 +15,10 @@ export default function Navbar() {
     <div>
     <nav className="flex items-center justify-between p-6">
       <div className="flex space-x-6">
-        <Link href="/Home" className="text-gray-800 hover:text-gray-600 font-medium pr-5">
+        <Link href="/Home" className="text-gray-800 hover:text-gray-600 font-medium text-[10px] pr-5">
           Home
         </Link>
-        <Link href="/artigos" className="text-gray-800 hover:text-gray-600 font-medium">
+        <Link href="/Articles" className="text-gray-800 hover:text-gray-600 text-[10px] font-medium">
           Artigos
         </Link>
       </div>
@@ -26,7 +26,7 @@ export default function Navbar() {
         <img
           src="#"
           alt="Profile"
-          className="w-10 h-10 rounded-full bg-purple-500"
+          className="w-8 h-8 rounded-full bg-purple-500"
         />
       </div>
     </nav>
