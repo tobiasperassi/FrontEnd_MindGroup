@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiArrowLeft } from "react-icons/fi";
+import { Toaster, toast } from "sonner";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function RegisterPage() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("As senhas não coincidem");
+      toast.error("As senhas não coincidem", { duration: 3000});
       return;
     }
 
@@ -31,15 +32,15 @@ export default function RegisterPage() {
       });
 
       if (res.ok) {
-        alert("Cadastro realizado com sucesso!");
+        toast.success("Cadastro realizado com sucesso!", { duration: 3000});
         router.push("/LoginPage");
       } else {
         const data = await res.json();
-        alert("Erro ao cadastrar: " + (data.message || "Erro desconhecido"));
+        toast.error("Erro ao cadastrar: " + (data.message || "Erro desconhecido"), {duration: 3000});
       }
     } catch (err) {
       console.error(err);
-      alert("Erro ao conectar com a API.");
+      toast.error("Erro ao conectar com a API.", {duration: 3000});
     }
   };
 

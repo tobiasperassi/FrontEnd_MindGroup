@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import { FaHeart, FaTrash, FaEdit } from "react-icons/fa";
+import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from 'next/navigation';
 
@@ -157,7 +158,7 @@ export default function MyArticles() {
                         }}
                         className="bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded-lg transition"
                       >
-                        <FaTrash size={14} />
+                        <FiTrash2 size={14} />
                       </button>
                       <button
                         onClick={(e) => {
@@ -166,7 +167,7 @@ export default function MyArticles() {
                         }}
                         className="bg-black hover:bg-gray-800 text-white py-2 px-5 rounded-lg transition"
                       >
-                        <FaEdit size={14} />
+                        <FiEdit2 size={14} />
                       </button>
                     </div>
                   </div>
@@ -182,7 +183,7 @@ export default function MyArticles() {
           <div className="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl">
             <h2 className="text-xl font-semibold mb-4">Excluir artigo?</h2>
 
-            <div className="border border-gray-200 rounded-lg p-4 bg-gray-50 mb-4">
+            <div className="border border-gray-500 rounded-lg p-4 bg-gray-50 mb-4">
               <p className="text-base font-semibold">{selectedArtigo.titulo}</p>
               <p className="text-sm text-gray-600">
                 Criado em: {new Date(selectedArtigo.data_criacao).toLocaleDateString("pt-BR")}
@@ -199,7 +200,7 @@ export default function MyArticles() {
             <div className="flex justify-end gap-3">
               <button
                 onClick={fecharModal}
-                className="text-red-500 border border-red-500 px-4 py-2 rounded-lg hover:bg-red-50 transition"
+                className="text-black border border-black px-4 py-2 rounded-lg hover:bg-red-50 transition"
               >
                 Cancelar
               </button>
@@ -207,7 +208,7 @@ export default function MyArticles() {
                 onClick={excluirArtigo}
                 className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition flex items-center gap-2"
               >
-                <FaTrash size={14} /> Excluir
+                <FiTrash2 size={14} /> Excluir
               </button>
             </div>
           </div>

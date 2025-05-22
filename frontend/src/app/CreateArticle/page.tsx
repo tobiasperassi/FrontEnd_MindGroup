@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-// Tipo do payload do token JWT
 type JwtPayload = {
   sub: number;
   email: string;
@@ -23,7 +23,7 @@ export default function CreateArticle() {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Você precisa estar logado para criar um artigo.");
+      toast.error("Você precisa estar logado para criar um artigo.", {duration: 3000});
       router.push("/LoginPage");
       return;
     }
@@ -42,7 +42,7 @@ export default function CreateArticle() {
     const token = localStorage.getItem("token");
 
     if (!token || !userId) {
-      alert("Usuário não autenticado!");
+      toast.error("Usuário não autenticado!", {duration: 3000});
       return;
     }
 
@@ -63,16 +63,15 @@ export default function CreateArticle() {
 
       if (response.ok) {
         const data = await response.json();
-        alert("Artigo criado com sucesso!");
+        toast.success("Artigo criado com sucesso!", {duration: 3000});
         console.log("Artigo criado:", data);
-        // Redirecionar ou limpar campos se quiser
       } else {
         const err = await response.json();
-        alert("Erro ao criar artigo: " + err.message);
+        toast.error("Erro ao criar artigo: " + err.message, {duration: 3000});
       }
     } catch (error) {
       console.error("Erro de rede:", error);
-      alert("Erro ao conectar ao servidor.");
+      toast.error("Erro ao conectar ao servidor.", {duration: 3000});
     }
   };
 
@@ -85,7 +84,7 @@ export default function CreateArticle() {
         <div className="flex flex-row items-start mt-4 gap-4">
           <div className="flex-shrink-0">
             <img
-              src="/imagemteste.png"
+              src="https://st2.depositphotos.com/1001599/7241/v/950/depositphotos_72418305-stock-illustration-camera-thin-line-icon.jpg"
               alt="Banner"
               className="w-25 h-25 rounded-xl object-cover"
             />
@@ -95,7 +94,7 @@ export default function CreateArticle() {
             <input
               type="text"
               placeholder="imagem-de-perfil123.png"
-              className="w-full rounded-md border border-gray-300 p-5 text-[13px]"
+              className="w-full rounded-md border border-gray-500 p-5 text-[13px]"
               value={imagem}
               onChange={(e) => setImagem(e.target.value)}
             />
@@ -106,24 +105,24 @@ export default function CreateArticle() {
         <input
           type="text"
           placeholder="Adicione um título"
-          className="w-full rounded-md border border-gray-300 p-5 mt-2 text-[13px]"
+          className="w-full rounded-md border border-gray-500 p-5 mt-2 text-[13px]"
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
-          maxLength={80}
+          maxLength={100}
         />
 
         <h1 className="mt-3">Texto</h1>
         <textarea
           placeholder="Escreva seu artigo"
-          className="w-full rounded-md border border-gray-300 p-5 mt-2 text-[13px] resize-none h-100"
+          className="w-full rounded-md border border-gray-500 p-5 mt-2 text-[13px] resize-none h-100"
           value={conteudo}
           onChange={(e) => setConteudo(e.target.value)}
-          maxLength={999}
+          maxLength={2999}
         />
 
         <button
           type="button"
-          className="w-full bg-black text-white py-2 rounded-2xl hover:opacity-90 transition mt-4"
+          className="w-full bg-black text-white py-4 rounded-2xl hover:opacity-90 transition mt-8"
           onClick={handleSubmit}
         >
           Salvar

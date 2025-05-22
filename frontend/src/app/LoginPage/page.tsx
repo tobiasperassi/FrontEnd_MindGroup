@@ -4,6 +4,7 @@ import BotaoSubmit from "@/components/BotaoSubmit";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,14 +28,21 @@ export default function LoginPage() {
         // Armazene o token no localStorage, cookie ou state global
         localStorage.setItem("token", data.access_token);
 
+        toast.success("Login realizado com sucesso!", {  duration: 3000})
+
+        setTimeout(() => {
+          
+          router.push("/Home");
+        })
+
         // Redirecionar para a home ou dashboard
-        router.push("/Home");
+        
       } else {
-        alert("Credenciais inválidas.");
+        toast.error("Credenciais inválidas.", {duration: 3000});
       }
     } catch (error) {
       console.error("Erro no login:", error);
-      alert("Erro ao tentar fazer login.");
+      toast.error("Erro ao tentar fazer login.", {duration: 3000});
     }
   }
 

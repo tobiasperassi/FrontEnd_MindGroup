@@ -24,9 +24,9 @@ export default function Navbar() {
       </div>
       <div onClick={abrirSidebar} className='cursor-pointer'>
         <img
-          src="#"
+          src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_hybrid&w=740"
           alt="Profile"
-          className="w-8 h-8 rounded-full bg-purple-500"
+          className="w-10 h-10 rounded-full"
         />
       </div>
     </nav>
@@ -54,8 +54,10 @@ export default function Navbar() {
           <Link href="/CreateArticle" className="text-black text-xl" onClick={abrirSidebar}>
             Criar novo Artigo
           </Link>
+        </div>
+        <div className='text-right mr-4 h-full'>
           <Link href="/LoginPage" className="text-black text-xl align-text-bottom" onClick={abrirSidebar}>
-            Sair
+              Sair
           </Link>
         </div>
       </div>

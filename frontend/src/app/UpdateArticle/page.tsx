@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import { jwtDecode } from "jwt-decode";
 import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 
 // Tipo do payload do token JWT
 type JwtPayload = {
@@ -25,7 +26,7 @@ export default function UpdateArticle() {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Você precisa estar logado.");
+      toast.error("Você precisa estar logado.", {duration: 3000});
       router.push("/LoginPage");
       return;
     }
@@ -51,7 +52,7 @@ export default function UpdateArticle() {
         })
         .catch(err => {
           console.error("Erro ao carregar artigo:", err);
-          alert("Erro ao carregar artigo.");
+          toast.error("Erro ao carregar artigo.", {duration: 3000});
         });
     }
   }, [articleId]);
@@ -60,7 +61,7 @@ export default function UpdateArticle() {
     const token = localStorage.getItem("token");
 
     if (!token || !userId || !articleId) {
-      alert("Dados insuficientes para atualizar o artigo.");
+      toast.error("Dados insuficientes para atualizar o artigo.", {duration: 3000});
       return;
     }
 
@@ -80,15 +81,15 @@ export default function UpdateArticle() {
       });
 
       if (response.ok) {
-        alert("Artigo atualizado com sucesso!");
+        toast.success("Artigo atualizado com sucesso!", {duration: 3000});
         router.push("/MyArticles"); // Redireciona de volta
       } else {
         const err = await response.json();
-        alert("Erro ao atualizar artigo: " + err.message);
+        toast.error("Erro ao atualizar artigo: " + err.message, {duration: 3000});
       }
     } catch (error) {
       console.error("Erro de rede:", error);
-      alert("Erro ao conectar ao servidor.");
+      toast.error("Erro ao conectar ao servidor.", {duration: 3000});
     }
   };
 

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 // Tipo do payload do token JWT
 type JwtPayload = {
@@ -19,16 +20,15 @@ export default function Home() {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState<number | null>(null);
-  const [email, setEmail] = useState(""); // <- novo estado para o e-mail
+  const [email, setEmail] = useState("");
   const router = useRouter();
 
 
-  // Decodifica o token e extrai o userId
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Você precisa estar logado para acessar esta página.");
+      toast.error("Você precisa estar logado para acessar esta página.", {duration: 3000});
       router.push("/LoginPage");
       return;
     }
@@ -48,12 +48,12 @@ export default function Home() {
     e.preventDefault();
 
     if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem.");
+      toast.error("As senhas não coincidem.", {duration: 3000});
       return;
     }
 
     if (!userId) {
-      alert("Usuário não autenticado.");
+      toast.error("Usuário não autenticado.", {duration: 3000});
       return;
     }
 
@@ -77,10 +77,10 @@ export default function Home() {
         }
       );
 
-      alert("Perfil atualizado com sucesso!");
+      toast.success("Perfil atualizado com sucesso!", {duration: 3000});
     } catch (err) {
       console.error(err);
-      alert("Erro ao atualizar o perfil.");
+      toast.error("Erro ao atualizar o perfil.", {duration: 3000});
     } finally {
       setLoading(false);
     }
@@ -104,7 +104,7 @@ export default function Home() {
             <input
               type="text"
               placeholder="imagem-de-perfil123.png"
-              className="w-full rounded-md border border-gray-300 p-2"
+              className="w-full rounded-md border border-gray-500 p-4"
               disabled
             />
           </div>
@@ -114,10 +114,10 @@ export default function Home() {
           <label className="block text-sm font-medium mb-1 mt-4">Nome</label>
           <input
             type="text"
-            placeholder="John"
+            placeholder="Nome"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
-            className="w-full rounded-md border border-gray-300 p-2"
+            className="w-full rounded-md border border-gray-500 p-4"
           />
         </div>
 
@@ -125,10 +125,10 @@ export default function Home() {
           <label className="block text-sm font-medium mb-1 mt-2">Sobrenome</label>
           <input
             type="text"
-            placeholder="Doe"
+            placeholder="Sobrenome"
             value={sobrenome}
             onChange={(e) => setSobrenome(e.target.value)}
-            className="w-full rounded-md border border-gray-300 p-2"
+            className="w-full rounded-md border border-gray-500 p-4"
           />
         </div>
 
@@ -140,7 +140,7 @@ export default function Home() {
             type="email"
             value={email}
             disabled
-            className="w-full rounded-md border border-gray-300 p-2 bg-gray-100 text-gray-500"
+            className="w-full rounded-md border border-gray-500 p-4 bg-gray-100 text-gray-500"
           />
         </div>
 
@@ -150,7 +150,8 @@ export default function Home() {
             type="password"
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
-            className="w-full rounded-md border border-gray-300 p-2"
+            className="w-full rounded-md border border-gray-500 p-4"
+            placeholder="**********"
           />
         </div>
 
@@ -160,14 +161,15 @@ export default function Home() {
             type="password"
             value={confirmarSenha}
             onChange={(e) => setConfirmarSenha(e.target.value)}
-            className="w-full rounded-md border border-gray-300 p-2"
+            className="w-full rounded-md border border-gray-500 p-4"
+            placeholder="**********"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-black text-white py-2 rounded-2xl hover:opacity-90 transition mt-4"
+          className="w-full bg-black text-white py-4 rounded-2xl hover:opacity-90 transition mt-8"
         >
           {loading ? "Salvando..." : "Salvar"}
         </button>
