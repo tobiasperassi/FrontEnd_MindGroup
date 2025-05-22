@@ -17,6 +17,8 @@ export default function CreateArticle() {
   const [imagem, setImagem] = useState("");
   const [userId, setUserId] = useState<number | null>(null);
 
+  const isLoggedIn = true;
+
   const router = useRouter();
 
   useEffect(() => {
@@ -77,7 +79,7 @@ export default function CreateArticle() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} />
       <div className="mx-5 flex flex-col">
         <h1>Criar Artigo</h1>
         

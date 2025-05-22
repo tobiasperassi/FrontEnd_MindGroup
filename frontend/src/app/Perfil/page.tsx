@@ -23,6 +23,8 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const router = useRouter();
 
+  const isLoggedIn = true;
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -88,7 +90,7 @@ export default function Home() {
 
   return (
     <div className="mx-7 my-4">
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} />
 
       <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-1">
         <h2 className="font-semibold text-[#1B1B1B]">Perfil</h2>

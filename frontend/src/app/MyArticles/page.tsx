@@ -33,6 +33,8 @@ export default function MyArticles() {
   const [showModal, setShowModal] = useState(false);
   const [selectedArtigo, setSelectedArtigo] = useState<Artigo | null>(null);
 
+  const isLoggedIn = true;
+
   const router = useRouter();
 
   useEffect(() => {
@@ -106,7 +108,7 @@ export default function MyArticles() {
   return (
     <div className="min-h-screen bg-white">
       <div className="ml-3">
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} />
       </div>
 
       <div className="max-w-3xl mx-auto px-4">
