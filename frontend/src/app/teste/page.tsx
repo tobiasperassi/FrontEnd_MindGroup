@@ -1,8 +1,6 @@
 'use client'
 
-import { Toaster, toast } from 'sonner'
-
-// ...
+import {  toast } from 'sonner'
 
 export default function teste() {
   return (

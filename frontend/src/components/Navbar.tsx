@@ -6,7 +6,7 @@ import { FiX } from 'react-icons/fi';
 import DesktopNavbar from './DesktopNavbar';
 import Logo from './Logo';
 
-export default function Navbar({ isLoggedIn = false }) { // Accept isLoggedIn as a prop
+export default function Navbar({ isLoggedIn = false }) {
   const [sidebarAberta, setSidebarAberta] = useState(false);
 
   const abrirSidebar = () => {
@@ -15,12 +15,10 @@ export default function Navbar({ isLoggedIn = false }) { // Accept isLoggedIn as
 
   return (
     <div>
-      {/* Desktop Navbar - Visible on medium screens and above */}
       <div className="hidden md:block">
         <DesktopNavbar isLoggedIn={isLoggedIn} />
       </div>
 
-      {/* Mobile Navbar - Visible on smaller screens */}
       <div className="md:hidden">
         <nav className="flex items-center justify-between p-6">
           <div className="flex space-x-6">

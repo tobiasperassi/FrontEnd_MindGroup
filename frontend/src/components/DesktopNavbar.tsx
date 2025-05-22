@@ -4,9 +4,8 @@ import { useState } from 'react';
 import { FiX } from 'react-icons/fi';
 import Logo from './Logo';
 
-// Define the props interface
 interface DesktopNavbarProps {
-  isLoggedIn?: boolean; // Optional prop with default value
+  isLoggedIn?: boolean; 
 }
 
 export default function DesktopNavbar({ isLoggedIn = false }: DesktopNavbarProps) {
@@ -19,10 +18,8 @@ export default function DesktopNavbar({ isLoggedIn = false }: DesktopNavbarProps
   return (
     <div>
       <nav className="flex items-center justify-between p-4 bg-white">
-        {/* Logo */}
         <Logo/>
 
-        {/* Links */}
         <div className="flex space-x-6">
           <Link href="/Home" className="text-gray-800 hover:text-gray-600 font-medium">
             Home
@@ -35,7 +32,6 @@ export default function DesktopNavbar({ isLoggedIn = false }: DesktopNavbarProps
           </Link>
         </div>
 
-        {/* Conditional Rendering for Logged In/Out */}
         <div>
           {isLoggedIn ? (
             <div onClick={abrirSidebar} className="cursor-pointer">
@@ -62,7 +58,6 @@ export default function DesktopNavbar({ isLoggedIn = false }: DesktopNavbarProps
         </div>
       </nav>
 
-      {/* Sidebar for Desktop (when logged in) */}
       {isLoggedIn && (
         <div
           className={`fixed top-0 left-0 h-full w-64 bg-white text-white transform ${

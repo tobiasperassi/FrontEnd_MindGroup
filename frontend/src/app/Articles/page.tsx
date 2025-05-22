@@ -21,7 +21,7 @@ export default function Articles() {
   const [artigos, setArtigos] = useState<Artigo[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const isLoggedIn = true; // Replace with actual auth logic
+  const isLoggedIn = true; 
 
   useEffect(() => {
     fetch("http://localhost:3000/artigos")

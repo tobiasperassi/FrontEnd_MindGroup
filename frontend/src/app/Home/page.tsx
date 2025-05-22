@@ -21,7 +21,7 @@ export default function Home() {
   const [artigos, setArtigos] = useState<Artigo[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const isLoggedIn = true; // Replace with actual auth logic
+  const isLoggedIn = true; 
 
   useEffect(() => {
     fetch("http://localhost:3000/artigos")
@@ -39,17 +39,15 @@ export default function Home() {
   if (loading) return <p>Carregando artigos...</p>;
 
   const principal = artigos[0];
-  const newArticles = artigos.slice(1, 5); // próximos 4
-  const carrossel = artigos.slice(5, 8); // próximos 3
+  const newArticles = artigos.slice(1, 5); 
+  const carrossel = artigos.slice(5, 8); 
 
   return (
     <div className="bg-white min-h-screen">
       <Navbar isLoggedIn={isLoggedIn} />
 
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* Main Layout with Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Main Article - Entire container clickable */}
           <div className="col-span-2">
             {principal && (
               <div
@@ -80,7 +78,6 @@ export default function Home() {
                   </span>
                   <AiFillHeart className="text-red-500 text-xl md:hidden" />
                 </div>
-                {/* "LER MAIS" button only for desktop */}
                 <button
                   onClick={() => router.push(`/artigo/${principal.id}`)}
                   className="hidden md:block mt-4 bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition"
@@ -91,7 +88,6 @@ export default function Home() {
             )}
           </div>
 
-          {/* New Section */}
           <div className="bg-black text-white p-4 mt-3 rounded-lg">
             <h3 className="text-xl font-bold mb-2 font-serif">New</h3>
             <ul className="space-y-3 text-sm">
@@ -109,7 +105,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Fixed Three Articles - Carousel on Mobile */}
         <div className="mt-6">
           <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-x-hidden snap-x snap-mandatory">
             {carrossel.map((artigo) => (

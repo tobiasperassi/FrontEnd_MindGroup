@@ -43,13 +43,11 @@ export default function LoginPage() {
     <div className="min-h-screen bg-white">
       <Toaster position="top-right" richColors />
       <div className="flex flex-col md:flex-row h-screen mt-12 md:mt-0">
-        {/* Black Section (Left) - Igual à página de cadastro */}
         <div className="hidden md:flex w-full md:w-1/2 bg-black flex-col items-center justify-center p-8 md:p-12">
           <LogoBranca />
           <p className="text-white text-sm md:text-base lg:text-lg mt-4">Conteúdo que inspira</p>
         </div>
 
-        {/* Form Section (Right) */}
         <div className="w-full md:w-1/2 flex items-center justify-center p-4 md:p-8">
           <form onSubmit={handleLogin} className="w-full max-w-md">
             <h1 className="text-[#1B1B1B] text-2xl md:text-3xl font-bold">Bem-vindo de volta!</h1>

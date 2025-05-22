@@ -20,7 +20,7 @@ export default function ArtigoPage() {
   const { id } = useParams();
   const [artigo, setArtigo] = useState<Artigo | null>(null);
   const [loading, setLoading] = useState(true);
-  const isLoggedIn = true; // Replace with actual auth logic
+  const isLoggedIn = true; 
 
   useEffect(() => {
     fetch(`http://localhost:3000/artigos/${id}`)
