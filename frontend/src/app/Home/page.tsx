@@ -21,6 +21,7 @@ export default function Home() {
   const [artigos, setArtigos] = useState<Artigo[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const isLoggedIn = true; // Replace with actual auth logic
 
   useEffect(() => {
     fetch("http://localhost:3000/artigos")
@@ -43,65 +44,78 @@ export default function Home() {
 
   return (
     <div className="bg-white min-h-screen">
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} />
 
-      <div className="max-w-2xl mx-auto px-2 pt-4">
-        {principal && (
-          <div
-            className="cursor-pointer hover:bg-gray-100 p-4 rounded-lg transition"
-            onClick={() => router.push(`/artigo/${principal.id}`)}
-          >
-            <ImageWithFallback
-              src={principal.imagem}
-              alt={principal.titulo}
-              width={800}
-              height={450}
-              className="rounded-lg w-full h-auto object-cover"
-            />
-            <h2 className="text-2xl font-bold mt-4 text-gray-900">
-              {principal.titulo}
-            </h2>
-            <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
-              <span className="flex items-center space-x-2">
-                <img
-                  src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_hybrid&w=740"
-                  className="w-8 h-8 rounded-full object-cover"
-                  alt="Avatar"
-                />
-                <span>
-                  Por {principal.autor.nome} {principal.autor.sobrenome} —{" "}
-                  {new Date(principal.data_criacao).toLocaleDateString("pt-BR")}
-                </span>
-              </span>
-              <AiFillHeart className="text-red-500 text-xl" />
-            </div>
-          </div>
-        )}
-
-        {/* Seção New */}
-        <div className="bg-black text-white p-4 mt-6 rounded-lg">
-          <h3 className="text-xl font-bold mb-2">New</h3>
-          <ul className="space-y-3 text-sm">
-            {newArticles.map((artigo) => (
-              <li
-                key={artigo.id}
-                className="cursor-pointer hover:underline"
-                onClick={() => router.push(`/artigo/${artigo.id}`)}
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        {/* Main Layout with Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Main Article - Entire container clickable */}
+          <div className="col-span-2">
+            {principal && (
+              <div
+                className="p-4 rounded-lg cursor-pointer"
+                onClick={() => router.push(`/artigo/${principal.id}`)}
               >
-                <strong>{artigo.titulo}</strong>
-                <p className="text-gray-300">{artigo.conteudo.substring(0, 100)}...</p>
-              </li>
-            ))}
-          </ul>
+                <ImageWithFallback
+                  src={principal.imagem}
+                  alt={principal.titulo}
+                  width={800}
+                  height={450}
+                  className="rounded-lg w-full h-auto object-cover"
+                />
+                <h2 className="text-2xl font-bold mt-4 text-gray-900">
+                  {principal.titulo}
+                </h2>
+                <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
+                  <span className="flex items-center space-x-2">
+                    <img
+                      src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_hybrid&w=740"
+                      className="w-8 h-8 rounded-full object-cover"
+                      alt="Avatar"
+                    />
+                    <span>
+                      Por {principal.autor.nome} {principal.autor.sobrenome} —{" "}
+                      {new Date(principal.data_criacao).toLocaleDateString("pt-BR")}
+                    </span>
+                  </span>
+                  <AiFillHeart className="text-red-500 text-xl md:hidden" />
+                </div>
+                {/* "LER MAIS" button only for desktop */}
+                <button
+                  onClick={() => router.push(`/artigo/${principal.id}`)}
+                  className="hidden md:block mt-4 bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition"
+                >
+                  LER MAIS
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* New Section */}
+          <div className="bg-black text-white p-4 mt-3 rounded-lg">
+            <h3 className="text-xl font-bold mb-2 font-serif">New</h3>
+            <ul className="space-y-3 text-sm">
+              {newArticles.map((artigo) => (
+                <li
+                  key={artigo.id}
+                  className="cursor-pointer hover:underline"
+                  onClick={() => router.push(`/artigo/${artigo.id}`)}
+                >
+                  <strong>{artigo.titulo}</strong>
+                  <p className="text-gray-300">{artigo.conteudo.substring(0, 100)}...</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        {/* Carrossel de Artigos */}
-        <div className="mt-6 overflow-x-auto">
-          <div className="flex space-x-4">
+        {/* Fixed Three Articles - Carousel on Mobile */}
+        <div className="mt-6">
+          <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-x-hidden snap-x snap-mandatory">
             {carrossel.map((artigo) => (
               <div
                 key={artigo.id}
-                className="min-w-[250px] bg-white border rounded-lg shadow-md p-2 cursor-pointer"
+                className="bg-white border rounded-lg shadow-md p-2 cursor-pointer min-w-[75%] md:min-w-0 snap-center mr-4 md:mr-0"
                 onClick={() => router.push(`/artigo/${artigo.id}`)}
               >
                 <img
